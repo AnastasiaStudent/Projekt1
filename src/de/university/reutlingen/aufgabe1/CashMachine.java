@@ -7,7 +7,7 @@ public class CashMachine {
 	State statePIN;
 	int zaehler;
 
-	CashMachine() {
+	public CashMachine() {
 		accounts = new Account[100];
 		cashCard = new CashCard("ACCOUNTNUMMER");
 		zaehler = 0;

@@ -4,7 +4,7 @@ public class CashCard {
 	String accountNumber;
 	int pin;
 
-	CashCard(String accountNumber) {
+	public CashCard(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
