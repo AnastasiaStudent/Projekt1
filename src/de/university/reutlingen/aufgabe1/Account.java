@@ -38,7 +38,7 @@ public class Account {
 	}
 
 	public void enterPin(int pin) {
-		// if richtig
+		 // if richtig
 		statePIN = State.PIN_CORRECT;
 		System.out.println("PIN correct" + "/n" + "Ready");
 		// else

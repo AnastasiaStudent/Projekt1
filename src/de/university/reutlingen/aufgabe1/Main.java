@@ -9,7 +9,7 @@ public class Main {
 
 		CashCard CC = new CashCard("1258");
 		CC.setPin(1414);
-		// CC.setAccountNumber(accountNumber);
+		//CC.setAccountNumber(accountNumber);
 		System.out.println(CC.getAccountNumber());
 
 		CashMachine CM = new CashMachine();
