@@ -44,8 +44,8 @@ public class Account {
 		// else
 		statePIN = State.PIN_WRONG;
 		System.out.println("PIN wrong");
-		// Im Zustand PIN_WRONG, ist das Ausführen von weiteren Methoden nicht
-		// möglich.
+		// Im Zustand PIN_WRONG, ist das Ausfuhren von weiteren Methoden nicht
+		// moglich.
 		// case
 	}
 

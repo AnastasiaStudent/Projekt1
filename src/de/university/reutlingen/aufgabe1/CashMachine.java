@@ -70,7 +70,7 @@ public class CashMachine {
 				}
 				// System.out.println("Ready.");
 				// Nur im Zustand READY
-				// können die Informationen
+				// konnen die Informationen
 				// der eingegebenen Cashcard
 				// im Attribute cashCard
 				// abgespeichert werden. Bei
