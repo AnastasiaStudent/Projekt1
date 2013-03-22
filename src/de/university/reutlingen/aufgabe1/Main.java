@@ -15,6 +15,7 @@ public class Main {
 		CashMachine CM = new CashMachine();
 		CM.insertCashCard(CC);
 		CM.withdraw(21);
+		CM.ejectCashCard();
 
 	}
 
