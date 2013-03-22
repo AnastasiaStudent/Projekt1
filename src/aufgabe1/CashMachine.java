@@ -15,6 +15,18 @@ public class CashMachine {
 	 state=State.READY;
 	 
 	}
+	private Account[] accounts = new Account[]{
+		      new Account(12345678, 1234, -1000.0, 2000.0),
+		      new Account(90874561, 2222, 0.0, 400.0),
+		      new Account(55487565, 5555, -500.0, 1000.0),
+		      new Account(12000002, 9911, -1200.0, 3875.0)
+		  }; //Fake Database
+	
+		  private CashCard cardA = new CashCard(12345678, "Steve"); //never used because of change of main()
+		  private CashCard cardB = new CashCard(90874561, "Mike");
+		  private CashCard cardC = new CashCard(55487565, "Dave");
+		  private CashCard cardD = new CashCard(12000002, "Jeff");
+		 // private CashCard currentCard = null;  //inserted Card
 	
 	public void insertCashCard(CashCard cashCardX) //Karteneingabe
 	{
@@ -40,13 +52,10 @@ public class CashMachine {
 		switch (state) {
 	      case CARD_INSERTED:
 	      {
-	      if (accountX.getPin()==pinX) //Pin sollte früher in main mit der Hilfe von setPin methode geschpeichert werden
+	      if (accountX.getPin()==pinX) //Pin sollte frï¿½her in main mit der Hilfe von setPin methode geschpeichert werden
 	      {
 	    	  statePIN=State.PIN_CORRECT;
 	    	  accounts[zaehler]=accountX;
-	    	  accounts[zaehler].setBankDeposit(100);//zum Testen statt das mehrere male in main einzutragen
-	    	  accounts[zaehler].setOverdraft(-50);//zum Testen statt das mehrere male in main einzutragen
-	  	    
 	    	  System.out.println(accounts[zaehler].getBankDeposit() );//zum Testen
 	    	  
 	      } // end of if
@@ -88,7 +97,7 @@ public class CashMachine {
 	    	}
 	      //System.out.println("Ready.");
 	      //Nur im Zustand READY 
-	      //können die Informationen 
+	      //kï¿½nnen die Informationen 
 	      //der eingegebenen Cashcard 
 	      //im Attribute cashCard 
 	      //abgespeichert werden. Bei 
@@ -113,7 +122,7 @@ public class CashMachine {
 		}	//switch State Ende	
 	}// Abheben Ende
 	
-	public void accountStatement() //Kontoinformationen
+	public void accountStatement(Account accountX) //Kontoinformationen
 	{
 		switch (state) {
 		case CARD_INSERTED:
