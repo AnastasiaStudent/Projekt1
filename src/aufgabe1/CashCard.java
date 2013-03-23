@@ -1,18 +1,18 @@
 package aufgabe1;
 
 public class CashCard  {
-	String accountNumber;
+	int accountNumber;
 	
 	
-	CashCard(String accountNumber )
+	CashCard(int accountNumber )
 	{
 		this.accountNumber=accountNumber;
 	}
-	public void setAccountNumber(String accountNumber)
+	public void setAccountNumber(int accountNumber)
 	{
 		this.accountNumber=accountNumber;
 	}
-	public String getAccountNumber()
+	public int getAccountNumber()
 	{
 		return accountNumber;
 	}

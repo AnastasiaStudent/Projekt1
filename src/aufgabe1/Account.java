@@ -3,24 +3,28 @@ package aufgabe1;
 
 public class Account {
 	
-String accountNumber;
+int accountNumber;
 double overdraft;
 double bankDeposit;
 int pin;
 State statePIN;
 
-	public Account(String accountNumber)
+public Account(int accountNumber,double overdraft, double bankDeposit,int pin) 
 	{
 		this.accountNumber=accountNumber;
+		this.overdraft=overdraft;
+		this.bankDeposit=bankDeposit;
+		this.pin=pin;
+		//this.setPin(pin) ;
 				
 	}
 	
-	
-public void setAccountNumber(String accountNumber)
+
+public void setAccountNumber(int accountNumber)
 {
 	this.accountNumber=accountNumber;
 }
-public String getAccountNumber()
+public int getAccountNumber()
 {
 	return accountNumber;
 }
@@ -40,19 +44,17 @@ public double getBankDeposit()
 {
   return bankDeposit;
 }
-public void setPin(int pinX)
+public void setPin(int pinX) throws ExceptionGeldautomat
 {
   if ( String.valueOf(pinX).length()==4)
   {
   //if richtig
-  statePIN=State.PIN_CORRECT;
-  System.out.println("PIN correct"+ "/n" +"Ready");
+  
   }
   else //if falsch
   {
-  statePIN=State.PIN_WRONG;
-  System.out.println(statePIN);
-  throw new ExceptionGeldautomat ("-= Not successfully. Format: **** =-");
+  
+   throw new ExceptionGeldautomat ("-= Not successfully. Format: **** =-");
    
   }
   }

@@ -1,40 +1,40 @@
 package aufgabe1;
 
 
+
 public class CashMachine {
-	Account[] accounts;
-	CashCard cashCard;
+	
 	State state;
 	State statePIN;
 	int zaehler;
 	CashMachine()
 	{
 	 accounts=new Account [100];
-	 cashCard=new CashCard("ACCOUNTNUMMER");
 	 zaehler=0;
 	 state=State.READY;
-	 
+	 statePIN=State.PIN_WRONG;
 	}
 	private Account[] accounts = new Account[]{
-		      new Account(12345678, 1234, -1000.0, 2000.0),
-		      new Account(90874561, 2222, 0.0, 400.0),
-		      new Account(55487565, 5555, -500.0, 1000.0),
-		      new Account(12000002, 9911, -1200.0, 3875.0)
-		  }; //Fake Database
+		      new Account(12345678,-1000.0,2000, 1234),
+		      new Account(23456789,-100.0,200, 2345),
+		      new Account(34567890,-200.0,300, 3456),
+		      new Account(45678901,0.0,5000, 456),
+		  }; //Arrays von Accounts wurde ausgefüllt
 	
-		  private CashCard cardA = new CashCard(12345678, "Steve"); //never used because of change of main()
-		  private CashCard cardB = new CashCard(90874561, "Mike");
-		  private CashCard cardC = new CashCard(55487565, "Dave");
-		  private CashCard cardD = new CashCard(12000002, "Jeff");
-		 // private CashCard currentCard = null;  //inserted Card
+		  private CashCard cashCardA = new CashCard(12345678); 
+		  private CashCard cashCardB = new CashCard(90874561);
+		  private CashCard cashCardC = new CashCard(55487565);
+		  private CashCard cashCardD = new CashCard(12000002);
+		  private CashCard currentCard = null;  //inserted Card
 	
-	public void insertCashCard(CashCard cashCardX) //Karteneingabe
+	public void insertCashCard (CashCard cashCardX) throws  CardInsertedException//Karteneingabe
 	{
-		switch (state) {
-	      case READY:
+		switch (state) 
+		{  case READY:
 	      {
-	      this.cashCard=cashCardX;
-	      cashCard.setAccountNumber(cashCardX.getAccountNumber());
+	      currentCard=cashCardX;
+	      System.out.println(currentCard.getAccountNumber());//ZUM Prüfen Anastasia
+	      //cashCard.setAccountNumber(cashCardX.getAccountNumber());
 	      
 	      state=State.CARD_INSERTED;
 	      System.out.println(state);
@@ -42,12 +42,12 @@ public class CashMachine {
 	      }
 	      break;
 	      default:
-	      throw new ExceptionGeldautomat("-= Not ready. Eine Karte ist schon eingegeben! Bitte entwerfen. =-");
-	    
+	    	throw new  CardInsertedException();
+	    	  
 	    }	//switch Ende
 	}//Karteneingabe Ende
 	
-	public void pinEingeben(Account accountX, int pinX) 
+	public void pinEingeben(Account accountX, int pinX) throws PinWrongException, CardNotInsertedException
 	{
 		switch (state) {
 	      case CARD_INSERTED:
@@ -57,11 +57,11 @@ public class CashMachine {
 	    	  statePIN=State.PIN_CORRECT;
 	    	  accounts[zaehler]=accountX;
 	    	  System.out.println(accounts[zaehler].getBankDeposit() );//zum Testen
-	    	  
+	    	  zaehler++;
 	      } // end of if
 	      else 
 	      {
-	           throw new ExceptionGeldautomat("-= PIN is not corect =-");
+	           throw new PinWrongException();
 		    
 	      } // end of if-else
 	      
@@ -69,14 +69,14 @@ public class CashMachine {
 	      }
 	      break;
 	      default:
-	      throw new ExceptionGeldautomat("-= Diese Operation ist nicht moeglich! Bitte zuerst Ihre karte eingeben. =-");
+	      throw new CardNotInsertedException();
 	    
 	    }	//switch Ende	
 		
 	}
 	
 	
-	public void withdraw(Account accountX, double amount) // Abheben
+	public void withdraw(Account accountX, double amount) throws PinWrongException, CardNotInsertedException, NotEnoughMoneyException // Abheben
 	{
 		
 		switch (state) 
@@ -89,80 +89,53 @@ public class CashMachine {
 	    	{if (accountX.bankDeposit>accountX.overdraft )
 	    	{accountX.bankDeposit=accountX.bankDeposit-amount; 
 	    	System.out.println("Ihr Kontoguthaben ist: " + accountX.getBankDeposit());
-	    		
 	    	}
 	    	else
-	    	{ throw new ExceptionGeldautomat("-= Unmoeglich! Nicht genug Geld auf Ihrem Konto. =-");}
-	    	{
+	    	{ throw new NotEnoughMoneyException();
 	    	}
-	      //System.out.println("Ready.");
-	      //Nur im Zustand READY 
-	      //k�nnen die Informationen 
-	      //der eingegebenen Cashcard 
-	      //im Attribute cashCard 
-	      //abgespeichert werden. Bei 
-	      //erfolgreicher Eingabe 
-	      //wechselt der Zustand von 
-	      //READY auf CARD_INSERTED. 
-	      //Der Status des Automaten soll
-	      //auf der Konsole protokolliert 
-	      //werden.
-	    	}
+	    	
+	 	    	}
 	    	 break;
 	      default:
-	    throw new ExceptionGeldautomat("-= Impossible!PIN is not ok. =-");
+	    throw new PinWrongException();
 	    }    
 	      
 		}
 		break;
 	    default:
-	    throw new ExceptionGeldautomat("-= Diese Operation ist nicht moeglich! Bitte zuerst Ihre karte eingeben. =-");
-	      
+	    throw new CardNotInsertedException();
 	        
 		}	//switch State Ende	
 	}// Abheben Ende
 	
-	public void accountStatement(Account accountX) //Kontoinformationen
+	public void accountStatement(Account accountX) throws PinWrongException, CardNotInsertedException // Abheben//Kontoinformationen
 	{
 		switch (state) {
 		case CARD_INSERTED:
 		switch (statePIN) {
 		case PIN_CORRECT:
-	    	System.out.println("Ihr Kontoguthaben ist: und weitere Info" + accounts[zaehler].getBankDeposit());
-	    	//WEITERE INFO
-	    
-	      	      
-	    	break;
+	    	System.out.println("Account Statement: " + "/n"+ "Account Nr.: "+accountX.getAccountNumber()+"/n"+"Bank Deposit: "+accountX.getBankDeposit()+"/n"+"Overdraft: "+accountX.getOverdraft() );
+	    break;
 	      default:
-	    throw new ExceptionGeldautomat("-= Impossible!PIN is not ok. =-");
-	    }    
+	    throw new PinWrongException();}    
 	      
 	      break;
 	      default:
-	    	  throw new ExceptionGeldautomat("-= Not ready. Please Card inserted! =-");
+	    	  throw new CardNotInsertedException();
 	      
 	    
 		}	//switch	
 	} //Kontoinformationen Ende
-	public void ejectCashCard() //Kartenauswurf
+	public void ejectCashCard(CashCard cashCardX) throws CardNotInsertedException // Kartenauswurf
 	{
 		switch (state) {
 		case CARD_INSERTED:
-		switch (statePIN) {
-		case PIN_CORRECT:
-	      	    	  
-		//das Attribute cashCard wird zur Nullreferenz. 
 		state=State.READY; 
         System.out.println("Ready");
-        zaehler++;
+        
         break;
 	      default:
-	    throw new ExceptionGeldautomat("-= Impossible!PIN is not ok. =-");
-	    }    
-	      
-	      break;
-	      default:
-	    	  throw new ExceptionGeldautomat("-= Not ready. Card inserted! =-");
+	    	  throw new CardNotInsertedException();
 		} // Switch State Ende
 	} //Kartenauswurf Ende
 	

@@ -1,6 +1,7 @@
-package aufgabe1;
 
-public class ExceptionGeldautomat extends IllegalStateException 
+package aufgabe1;
+import java.lang.Exception;
+public class ExceptionGeldautomat extends Exception
 {
 	/**
 	 * 
