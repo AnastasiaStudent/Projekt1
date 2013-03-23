@@ -108,13 +108,13 @@ public class CashMachine {
 		}	//switch State Ende	
 	}// Abheben Ende
 	
-	public void accountStatement(Account accountX) throws PinWrongException, CardNotInsertedException // Abheben//Kontoinformationen
+	public void accountStatement(Account accountX) throws PinWrongException, CardNotInsertedException //Kontoinformationen
 	{
 		switch (state) {
 		case CARD_INSERTED:
 		switch (statePIN) {
 		case PIN_CORRECT:
-	    	System.out.println("Account Statement: " + "/n"+ "Account Nr.: "+accountX.getAccountNumber()+"/n"+"Bank Deposit: "+accountX.getBankDeposit()+"/n"+"Overdraft: "+accountX.getOverdraft() );
+	    	System.out.println("Account Statement: " + "\n"+ "Account Nr.: "+accountX.getAccountNumber()+"\n"+"Bank Deposit: "+accountX.getBankDeposit()+"\n"+"Overdraft: "+accountX.getOverdraft() );
 	    break;
 	      default:
 	    throw new PinWrongException();}    
