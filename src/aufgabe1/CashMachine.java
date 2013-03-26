@@ -25,9 +25,13 @@ public class CashMachine {
 	private CashCard cashCardC = new CashCard(55487565);
 	private CashCard cashCardD = new CashCard(12000002);
 	private CashCard currentCard = null; // inserted Card
-
-	public void insertCashCard(CashCard cashCardX) throws CardInsertedException// Karteneingabe
-	{
+	/**
+	 * 
+	 * @param cashCardX
+	 * @throws CardInsertedException
+	 */
+	
+	public void insertCashCard(CashCard cashCardX) throws CardInsertedException {
 		switch (state) {
 		case READY: {
 			currentCard = cashCardX;
@@ -40,6 +44,9 @@ public class CashMachine {
 
 		}
 			break;
+			/*
+			 * 
+			 */
 		default:
 			throw new CardInsertedException();
 
@@ -54,6 +61,10 @@ public class CashMachine {
 											// Hilfe von setPin methode
 											// geschpeichert werden
 			{
+				/**
+				 *
+				 * 
+				 */
 				statePIN = State.PIN_CORRECT;
 				accounts[zaehler] = accountX;
 				System.out.println(accounts[zaehler].getBankDeposit());// zum
@@ -82,9 +93,7 @@ public class CashMachine {
 		switch (state) {
 		case CARD_INSERTED: {
 			switch (statePIN) {
-			case PIN_CORRECT:
-
-			{
+			case PIN_CORRECT: {
 				if (accountX.bankDeposit > accountX.overdraft) {
 					accountX.bankDeposit = accountX.bankDeposit - amount;
 					System.out.println("Ihr Kontoguthaben ist: "
@@ -142,6 +151,7 @@ public class CashMachine {
 		default:
 			throw new CardNotInsertedException();
 		} // Switch State Ende
-	} // Kartenauswurf Ende
+	}
+	// Kartenauswurf Ende
 
 }
